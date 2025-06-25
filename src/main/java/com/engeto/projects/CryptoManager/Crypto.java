@@ -1,5 +1,6 @@
 package com.engeto.projects.CryptoManager;
 
+
 public class Crypto {
 
     int id;
@@ -14,6 +15,7 @@ public class Crypto {
         this.symbol = symbol;
         this.price = price;
         this.quantity = quantity;
+
     }
 
     public int getId() {

@@ -1,0 +1,21 @@
+meta {
+  name: Adds crypto
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/cryptos
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 3,
+    "name": "Dogecoin",
+    "symbol": "DGC",
+    "price": 100000000,
+    "quantity": 5
+  }
+}

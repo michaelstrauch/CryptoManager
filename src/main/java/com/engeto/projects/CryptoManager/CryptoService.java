@@ -13,21 +13,24 @@ public class CryptoService {
         currenciesList.add(crypto);
     }
 
-    public Crypto getCryptoByID(int id){
+    public Crypto getCryptoByID(int id) {
         for (Crypto crypto : currenciesList) {
-            if(crypto.getId() == id) {
+            if (crypto.getId() == id) {
                 return crypto;
             }
         }
         return null;
     }
 
-    public List<Crypto> printAllCurrencies() {
-        for (Crypto crypto : currenciesList) {
-            System.out.println(crypto);
-        } return currenciesList;
+    public List<Crypto> getAllCurrencies() {
+        return new ArrayList<>(currenciesList);
     }
 
+    public void printAllCurrencies() {
+        for (Crypto crypto : currenciesList) {
+            System.out.println(crypto);
+        }
+    }
 
     public void sortByName() {
         currenciesList.sort(Comparator.comparing(Crypto::getName));

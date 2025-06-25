@@ -10,21 +10,16 @@ import java.util.List;
 @RequestMapping("/cryptos")
 public class CryptoController {
 
-    private CryptoService cryptoService = new CryptoService();
+    private final CryptoService cryptoService = new CryptoService();
 
-    @PostMapping("/add")
+    @PostMapping()
     public String addCrypto(@RequestBody Crypto crypto) {
         cryptoService.addCryptoCurrency(crypto);
         return "Cryptocurrency added: " + crypto.getName();
     }
 
-    @GetMapping("/list")
-    public List<Crypto> listAll() {
-        return cryptoService.printAllCurrencies();
-    }
-
-    @GetMapping("/sort")
-    public List<Crypto> sortList(@RequestParam(required = false) String sort) {
+    @GetMapping()
+    public List<Crypto> getCryptos(@RequestParam(required = false) String sort) {
         if (sort != null) {
             switch (sort.toLowerCase()) {
                 case "price":
@@ -36,17 +31,41 @@ public class CryptoController {
                 case "quantity":
                     cryptoService.sortByQuantity();
                     break;
+                default:
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong sorting method");
             }
         }
-        return cryptoService.printAllCurrencies();
+        return cryptoService.getAllCurrencies();
     }
 
     @GetMapping("/{id}")
-    public Crypto getCryptoId(@PathVariable int id) {
-        if (cryptoService.getCryptoByID(id) == null) {
+    public Crypto getCryptoById(@PathVariable int id) {
+        Crypto foundCrypto = cryptoService.getCryptoByID(id);
+        if (foundCrypto == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Crypto not found");
         }
-        return cryptoService.getCryptoByID(id);
+        return foundCrypto;
+    }
 
+    @PutMapping("/{id}")
+    public String updateCrypto(@RequestBody Crypto updatedCrypto, @PathVariable int id) {
+        Crypto replacedCrypto = cryptoService.getCryptoByID(id);
+        if (replacedCrypto == null) {
+            return "Crypto not found";
+        }
+        replacedCrypto.setName(updatedCrypto.getName());
+        replacedCrypto.setPrice(updatedCrypto.getPrice());
+        replacedCrypto.setQuantity(updatedCrypto.getQuantity());
+        replacedCrypto.setSymbol(updatedCrypto.getSymbol());
+        return "Crypto " + id + " updated.";
+    }
+
+    @GetMapping("/portfolio-value")
+    public String totalPortfolioValue() {
+        double totalValue = 0;
+        for (Crypto crypto : cryptoService.currenciesList) {
+            totalValue += crypto.getPrice() * crypto.getQuantity();
+        }
+        return "Total portfolio value is: " + totalValue;
     }
 }
