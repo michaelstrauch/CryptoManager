@@ -1,5 +1,7 @@
-package com.engeto.projects.CryptoManager;
+package com.engeto.projects.CryptoManager.Controllers;
 
+import com.engeto.projects.CryptoManager.CryptoModel.Crypto;
+import com.engeto.projects.CryptoManager.Services.CryptoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;

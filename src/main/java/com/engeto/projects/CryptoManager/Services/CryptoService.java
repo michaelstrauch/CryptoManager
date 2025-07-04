@@ -1,4 +1,6 @@
-package com.engeto.projects.CryptoManager;
+package com.engeto.projects.CryptoManager.Services;
+
+import com.engeto.projects.CryptoManager.CryptoModel.Crypto;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -6,7 +8,7 @@ import java.util.List;
 
 public class CryptoService {
 
-    List<Crypto> currenciesList = new ArrayList<>();
+    public List<Crypto> currenciesList = new ArrayList<>();
 
 
     public void addCryptoCurrency(Crypto crypto) {

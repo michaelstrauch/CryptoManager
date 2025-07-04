@@ -1,13 +1,13 @@
-package com.engeto.projects.CryptoManager;
+package com.engeto.projects.CryptoManager.CryptoModel;
 
 
 public class Crypto {
 
-    int id;
-    String name;
-    String symbol;
-    Double price;
-    Double quantity;
+    private int id;
+    private String name;
+    private String symbol;
+    private Double price;
+    private Double quantity;
 
     public Crypto(int id, String name, String symbol, Double price, Double quantity) {
         this.id = id;
